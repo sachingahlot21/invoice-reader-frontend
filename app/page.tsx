@@ -1,24 +1,23 @@
 import Link from "next/link";
-
+import { BackgroundRippleEffect } from "@/components/ui/background-ripple-effect";
+import { BoxesCore } from "@/components/ui/background-boxes";
+import Navbar from "@/components/Navbar";
+import { HoverCardWrapper } from "@/components/ui/HoverCardWrapper";
 export default function Home() {
   return (
     <main className="min-h-screen bg-white text-gray-900  overflow-x-hidden">
       {/* Navbar */}
-      <nav className="sticky top-0 z-50  bg-green-500  backdrop-blur border-b">
-        <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-          <h1 className="text-2xl font-bold tracking-tight">SplitPay</h1>
-          <div className="hidden md:flex items-center gap-8 text-sm font-medium">
-            <Link href="#features" className="hover:text-black">Features</Link>
-            <Link href="#pricing" className="hover:text-black">Pricing</Link>
-            <Link href="#how" className="hover:text-black">How it works</Link>
-            <Link href="/login" className="px-4 py-2 rounded-xl bg-black text-white">Get Started</Link>
-          </div>
-        </div>
-      </nav>
+      <Navbar />
 
       {/* Hero Section */}
-      <section className="relative overflow-hidden">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-16 sm:py-24 grid md:grid-cols-2 gap-12 items-center">
+      <section className="relative overflow-hidden h-screen">
+        {/* Ripple background */}
+        <div className="absolute inset-0 z-0">
+          <BackgroundRippleEffect />
+        </div>
+
+        {/* Hero content */}
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 py-16 sm:py-24 grid md:grid-cols-2 gap-12 items-center h-full">
           <div>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold leading-tight mb-6">
               Roommate expenses, <br /> sorted.
@@ -56,6 +55,7 @@ export default function Home() {
         </div>
       </section>
 
+
       {/* Features */}
       <section id="features" className="bg-gray-50 py-24">
         <div className="max-w-7xl mx-auto px-6">
@@ -72,28 +72,94 @@ export default function Home() {
       </section>
 
       {/* How it works */}
-      <section id="how" className="py-24">
-        <div className="max-w-6xl mx-auto px-6">
-          <h3 className="text-3xl font-bold mb-16 text-center">How it works</h3>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-12 text-center">
-            <Step num="1" title="Snap" desc="Take a photo of the bill." />
-            <Step num="2" title="Choose" desc="Select roommates and assign items." />
-            <Step num="3" title="Split" desc="Get instant, fair calculations." />
+      <section
+        id="how"
+        className="h-[calc(100vh-64px)] flex items-center"
+        style={{
+          background: `linear-gradient(to bottom, rgba(241,196,15,0.71), rgb(241 196 15 / 23%))`,
+        }}
+      >
+
+
+        <div className="max-w-6xl mx-auto px-6 w-full">
+          {/* Section Title */}
+          <h3 className="text-4xl sm:text-5xl font-extrabold mb-20 text-center">
+            How it works
+          </h3>
+
+          {/* Steps */}
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-16 text-center">
+            {/* Step 1 */}
+            <div className="flex flex-col items-center">
+              <div className="w-20 h-20 rounded-2xl bg-white flex items-center justify-center shadow-lg mb-6 text-3xl">
+                📸
+              </div>
+              <h4 className="text-2xl font-semibold mb-4">Snap the bill</h4>
+              <p className="text-gray-800 text-lg leading-relaxed max-w-xs">
+                Take a photo of your receipt or upload a bill. Our system instantly reads items and total amounts.
+              </p>
+            </div>
+
+            {/* Step 2 */}
+            <div className="flex flex-col items-center">
+              <div className="w-20 h-20 rounded-2xl bg-white flex items-center justify-center shadow-lg mb-6 text-3xl">
+                👥
+              </div>
+              <h4 className="text-2xl font-semibold mb-4">Choose people</h4>
+              <p className="text-gray-800 text-lg leading-relaxed max-w-xs">
+                Select roommates or friends and assign items. Split equally or customise who pays for what.
+              </p>
+            </div>
+
+            {/* Step 3 */}
+            <div className="flex flex-col items-center">
+              <div className="w-20 h-20 rounded-2xl bg-white flex items-center justify-center shadow-lg mb-6 text-3xl">
+                ⚡
+              </div>
+              <h4 className="text-2xl font-semibold mb-4">Split instantly</h4>
+              <p className="text-gray-800 text-lg leading-relaxed max-w-xs">
+                Get instant, fair calculations. Everyone knows exactly how much they owe — no awkward math or confusion.
+              </p>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Pricing */}
+
+
       <section id="pricing" className="bg-gray-50 py-24">
         <div className="max-w-6xl mx-auto px-6">
           <h3 className="text-3xl font-bold mb-12 text-center">Simple pricing</h3>
+
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
-            <PriceCard plan="Free" price="0" features={["Basic bill splits", "Manual entries", "Up to 3 people"]} />
-            <PriceCard plan="Pro" price="5" highlight features={["AI bill scanning", "Unlimited roommates", "Custom splits"]} />
-            <PriceCard plan="Household" price="10" features={["Multiple houses", "Export reports", "Priority support"]} />
+            <HoverCardWrapper>
+              <PriceCard
+                plan="Free"
+                price="0"
+                features={["Basic bill splits", "Manual entries", "Up to 3 people"]}
+              />
+            </HoverCardWrapper>
+
+            <HoverCardWrapper>
+              <PriceCard
+                plan="Pro"
+                price="5"
+                highlight
+                features={["AI bill scanning", "Unlimited roommates", "Custom splits"]}
+              />
+            </HoverCardWrapper>
+
+            <HoverCardWrapper>
+              <PriceCard
+                plan="Household"
+                price="10"
+                features={["Multiple houses", "Export reports", "Priority support"]}
+              />
+            </HoverCardWrapper>
           </div>
         </div>
       </section>
+
 
       {/* Footer */}
       <footer className="border-t py-10 px-4 sm:px-6">
