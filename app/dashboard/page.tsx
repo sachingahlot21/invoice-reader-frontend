@@ -43,7 +43,6 @@ export default function DashboardPage() {
     const [memberInput, setMemberInput] = useState("");
 
 
-    // Mock available members (later fetch from backend)
     const availableMembers: Member[] = [
         { id: "u1", name: "John Doe" },
         { id: "u2", name: "Jane Doe" },
@@ -51,7 +50,6 @@ export default function DashboardPage() {
         { id: "u4", name: "Bob" },
     ];
 
-    // Load user & groups from localStorage
     useEffect(() => {
         const storedUser = localStorage.getItem("user");
         if (storedUser) {
@@ -76,14 +74,12 @@ export default function DashboardPage() {
         const updatedGroups = [...groups, newGroup];
         setGroups(updatedGroups);
 
-        // Save to localStorage (later: send API request to backend)
         if (user) {
             const updatedUser = { ...user, groups: updatedGroups };
             setUser(updatedUser);
             localStorage.setItem("user", JSON.stringify(updatedUser));
         }
 
-        // Reset modal
         setNewGroupName("");
         setSelectedMembers([]);
         setNewGroupType("Trip");
@@ -112,7 +108,6 @@ export default function DashboardPage() {
                 Start a New Group
             </button>
 
-            {/* Groups List */}
             {groups.length > 0 ? (
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     {groups.map((group) => (
@@ -130,7 +125,6 @@ export default function DashboardPage() {
                 <p>No groups found. Create your first group!</p>
             )}
 
-            {/* Modal */}
             {modalOpen && (
                 <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
                     <div className="bg-white p-6 rounded shadow w-96">
