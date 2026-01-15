@@ -3,6 +3,8 @@
 import { useEffect, useState } from "react";
 import { AiOutlineHome, AiOutlineUsergroupAdd, AiOutlineStar } from "react-icons/ai";
 import { GiTravelDress } from "react-icons/gi";
+import { useRouter } from "next/navigation";
+
 
 interface Member {
     id: string;
@@ -42,7 +44,7 @@ export default function DashboardPage() {
     const [selectedMembers, setSelectedMembers] = useState<Member[]>([]);
     const [memberInput, setMemberInput] = useState("");
 
-
+    const router = useRouter();
     const availableMembers: Member[] = [
         { id: "u1", name: "John Doe" },
         { id: "u2", name: "Jane Doe" },
@@ -111,7 +113,9 @@ export default function DashboardPage() {
             {groups.length > 0 ? (
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     {groups.map((group) => (
-                        <div key={group.id} className="p-4 border rounded shadow">
+                        <div key={group.id}
+                            onClick={() => router.push(`/group/${group.id}`)}
+                            className="p-4 border rounded shadow">
                             <h2 className="text-xl font-semibold">
                                 {groupTypeIcon(group.type)} {group.name}
                             </h2>
