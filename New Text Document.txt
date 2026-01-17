@@ -1,0 +1,354 @@
+SplitPay – Deep Workflow Phases (Solo Dev Edition)
+🟣 PHASE 0: PRODUCT THINKING & BOUNDARIES
+
+Goal: Stop confusion before it starts.
+
+What you do in this phase
+
+You freeze the problem, not the solution.
+
+Answer these once (write them in README):
+
+Who is this for?
+
+Roommates sharing household expenses
+
+Not friends on trips
+
+Not company reimbursements
+
+What problem is unique here?
+
+Equal split is unfair
+
+Each item belongs to different people
+
+What is NOT included (for now)?
+
+Real payments (UPI / Stripe)
+
+Mandatory user signup for every member
+
+Complex tax handling
+
+📌 Why this phase matters
+
+Prevents feature creep
+
+Keeps you from rebuilding things 5 times
+
+📍 Exit Phase 0 when:
+You can explain SplitPay in one sentence confidently.
+
+🟣 PHASE 1: USER & DATA FLOW DESIGN (NO CODING YET)
+
+Goal: Know what happens when, before writing code.
+
+1️⃣ User Journey Flow
+
+You draw this mentally (or on paper):
+
+Signup → Login → Create Group
+→ Add Members → Add Bill
+→ Split Items → Review
+→ Finalize → Share PDF
+
+
+Each arrow = one screen or action
+
+2️⃣ Core Entities (Mental Model)
+
+You define what exists in the system.
+
+User (real person using app)
+
+Group (house / flat)
+
+Member (name-based, may not be a user)
+
+Bill
+
+Bill Item
+
+Item Distribution
+
+Settlement
+
+📌 Why this matters
+
+Prevents messy state later
+
+Makes backend design trivial
+
+📍 Exit Phase 1 when:
+You know exactly what data exists and why.
+
+🟣 PHASE 2: MVP IMPLEMENTATION (FUNCTIONAL, NOT FANCY)
+
+Goal: Make SplitPay work end-to-end.
+
+⚠️ No AI
+⚠️ No OCR
+⚠️ No analytics
+
+Just correctness.
+
+🔹 Step 1: Authentication
+
+Why first?
+
+Everything belongs to a user
+
+Groups & bills need ownership
+
+What to build
+
+Signup
+
+Login
+
+JWT session
+
+Basic profile
+
+What NOT to overdo
+
+Password reset
+
+Social login
+
+📍 Move on when:
+
+User can log in and stay logged in
+
+🔹 Step 2: Groups & Members
+
+This is NOT trivial
+
+Key design decision:
+
+Members ≠ Users
+
+Why?
+
+Real life: not everyone installs the app
+
+Implementation logic
+
+Group has:
+
+Owner (user)
+
+Members (array of names)
+
+Members are lightweight
+
+📍 Move on when:
+
+You can create group
+
+Add/remove members
+
+Persist data
+
+🔹 Step 3: Bill Creation
+
+This is your main workflow
+
+3 entry methods:
+
+Image upload
+
+PDF upload
+
+Manual entry
+
+📌 For now:
+
+Store file
+
+Don’t parse yet
+
+🔹 Step 4: Item-Level Distribution (CORE)
+
+This is SplitPay’s heart.
+
+For each item:
+
+Price
+
+Select members
+
+Auto-split price equally among selected members
+
+Edge cases you MUST handle:
+
+Single member item
+
+Decimal rounding
+
+Removing a member
+
+📍 Move on when:
+
+Calculations are correct
+
+UI is usable (not pretty)
+
+🔹 Step 5: Settlement Logic
+
+This proves engineering maturity
+
+You compute:
+
+Who paid
+
+Who owes
+
+Net balance
+
+Example:
+
+A paid ₹1000
+
+B owes ₹300
+
+C owes ₹700
+
+📍 Move on when:
+
+You can explain the math clearly
+
+🔹 Step 6: PDF Summary
+
+Why this matters
+
+Transparency
+
+Shareability
+
+Trust
+
+PDF must show:
+
+Item → members
+
+Individual totals
+
+Net settlement
+
+📍 End of MVP
+
+🟣 PHASE 3: SYSTEM DESIGN & SCALABILITY THINKING
+
+Goal: Think like a backend / system engineer.
+
+1️⃣ Data Schema Design
+
+Even if APIs aren’t built:
+
+Normalize entities
+
+Define references
+
+Add indexes mentally
+
+📌 Recruiters LOVE this.
+
+2️⃣ Draft vs Final State
+
+Why?
+
+Bills change
+
+Once finalized, must be immutable
+
+Status flow:
+
+Draft → Review → Finalized
+
+3️⃣ State Management Strategy
+
+You document:
+
+What lives in local state
+
+What is global
+
+What will come from API later
+
+📍 Move on when:
+
+No random state duplication exists
+
+🟣 PHASE 4: SMART & ADVANCED FEATURES
+
+Goal: Make recruiters stop scrolling.
+
+🔥 OCR & AI Parsing
+
+Extract items
+
+Editable confidence-based UI
+
+Even partial accuracy is fine.
+
+🔥 Smart Distribution
+
+Learn past behavior
+
+Suggest members per item
+
+Shows:
+
+“I think beyond CRUD”
+
+🔥 Review & Dispute Mode
+
+Members can:
+
+Flag item
+
+Add comments
+
+Enterprise-level thinking.
+
+🟣 PHASE 5: PRODUCTION-LEVEL POLISH
+
+Goal: Show engineering discipline.
+
+Error Handling
+
+File upload failures
+
+Invalid splits
+
+Network issues
+
+Performance
+
+Large bills
+
+Many members
+
+Testing
+
+Unit tests for split logic
+
+Edge-case validation
+
+🟣 PHASE 6: DOCUMENTATION & STORYTELLING
+
+This is CRITICAL
+
+Your README must explain:
+
+Why item-level split
+
+How calculations work
+
+Design decisions
+
+Trade-offs
+
+📌 This wins interviews.

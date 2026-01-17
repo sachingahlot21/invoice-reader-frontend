@@ -2,11 +2,36 @@
 
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import AddInvoiceModal from "./components/AddInvoiceModal";
 
 export default function GroupDetailPage() {
   const { id } = useParams();
   const router = useRouter();
   const [group, setGroup] = useState<any>(null);
+
+  const [showAddInvoice, setShowAddInvoice] = useState(false);
+  const [invoices, setInvoices] = useState<any[]>(group?.expenses || []);
+
+  const handleSaveInvoice = (invoice: any) => {
+    const updatedInvoices = [...(invoices || []), invoice];
+    setInvoices(updatedInvoices);
+
+    // Save back to localStorage (simulate backend)
+    const userData = JSON.parse(localStorage.getItem("user") || "{}");
+    const updatedGroups = userData.groups.map((g: any) => {
+      if (g.id === id) {
+        return { ...g, expenses: updatedInvoices };
+      }
+      return g;
+    });
+    localStorage.setItem("user", JSON.stringify({ ...userData, groups: updatedGroups }));
+
+    setShowAddInvoice(false);
+  };
+  useEffect(() => {
+    const userData = JSON.parse(localStorage.getItem("user") || "{}");
+  })
+
 
   useEffect(() => {
     // TODO: Replace with GET /api/groups/:id
@@ -41,7 +66,9 @@ export default function GroupDetailPage() {
 
       {/* Actions */}
       <div className="flex gap-4">
-        <button className="px-4 py-2 bg-blue-600 text-white rounded">
+        <button
+          onClick={() => setShowAddInvoice(true)}
+          className="px-4 py-2 bg-blue-600 text-white rounded">
           ➕ Add Invoice
         </button>
 
@@ -58,12 +85,12 @@ export default function GroupDetailPage() {
       <div className="border rounded p-4">
         <h2 className="text-xl font-semibold mb-2">Invoices</h2>
 
-        {group.expenses?.length > 0 ? (
+        {invoices.length > 0 ? (
           <ul className="space-y-2">
-            {group.expenses.map((exp: any) => (
+            {invoices.map((exp: any) => (
               <li key={exp.id} className="border p-2 rounded">
-                <p><strong>{exp.description}</strong></p>
-                <p>Amount: ₹{exp.amount}</p>
+                <p><strong>{exp.vendor}</strong></p>
+                <p>Amount: ₹{exp.totalAmount}</p>
                 <p>Paid by: {group.members.find((m: any) => m.id === exp.paidBy)?.name}</p>
               </li>
             ))}
@@ -71,7 +98,16 @@ export default function GroupDetailPage() {
         ) : (
           <p className="text-gray-500">No invoices added yet.</p>
         )}
+
       </div>
+      {showAddInvoice && (
+        <AddInvoiceModal
+          groupId={id}
+          members={group.members}
+          onClose={() => setShowAddInvoice(false)}
+          onSave={handleSaveInvoice}
+        />
+      )}
     </div>
   );
 }
