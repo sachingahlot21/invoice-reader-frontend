@@ -16,7 +16,6 @@ export default function GroupDetailPage() {
     const updatedInvoices = [...(invoices || []), invoice];
     setInvoices(updatedInvoices);
 
-    // Save back to localStorage (simulate backend)
     const userData = JSON.parse(localStorage.getItem("user") || "{}");
     const updatedGroups = userData.groups.map((g: any) => {
       if (g.id === id) {
@@ -28,9 +27,17 @@ export default function GroupDetailPage() {
 
     setShowAddInvoice(false);
   };
+
   useEffect(() => {
     const userData = JSON.parse(localStorage.getItem("user") || "{}");
-  })
+    const foundGroup = userData.groups?.find((g: any) => g.id === id);
+
+    if (foundGroup) {
+      setGroup(foundGroup);
+      setInvoices(foundGroup.expenses || []);
+    }
+  }, [id]);
+
 
 
   useEffect(() => {
