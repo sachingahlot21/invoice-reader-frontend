@@ -6,17 +6,17 @@ import { HoverCardWrapper } from "@/components/ui/HoverCardWrapper";
 export default function Home() {
   return (
     <main className="min-h-screen bg-white text-gray-900  overflow-x-hidden">
-      {/* Navbar */}
+    
       <Navbar />
 
-      {/* Hero Section */}
+      
       <section className="relative overflow-hidden h-screen">
-        {/* Ripple background */}
+       
         <div className="absolute inset-0 z-0">
           <BackgroundRippleEffect />
         </div>
 
-        {/* Hero content */}
+        
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 py-16 sm:py-24 grid md:grid-cols-2 gap-12 items-center h-full">
           <div>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold leading-tight mb-6">
