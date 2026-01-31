@@ -54,7 +54,6 @@ export default function GroupDetailPage() {
 
   return (
     <div className="p-6 space-y-6">
-      {/* Header */}
       <div className="flex justify-between items-center">
         <h1 className="text-3xl font-bold">{group.name}</h1>
         <button
@@ -65,13 +64,11 @@ export default function GroupDetailPage() {
         </button>
       </div>
 
-      {/* Group Info */}
       <div className="border rounded p-4">
         <p><strong>Type:</strong> {group.type}</p>
         <p><strong>Members:</strong> {group.members.map((m: any) => m.name).join(", ")}</p>
       </div>
 
-      {/* Actions */}
       <div className="flex gap-4">
         <button
           onClick={() => setShowAddInvoice(true)}
@@ -88,7 +85,6 @@ export default function GroupDetailPage() {
         </button>
       </div>
 
-      {/* Invoices Section */}
       <div className="border rounded p-4">
         <h2 className="text-xl font-semibold mb-2">Invoices</h2>
 

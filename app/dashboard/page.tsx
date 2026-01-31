@@ -156,11 +156,9 @@ export default function DashboardPage() {
                             </select>
                         </div>
 
-                        {/* Members Section */}
                         <div className="mb-3">
                             <label className="font-semibold mb-1 block">Members:</label>
 
-                            {/* Input to add a member */}
                             <div className="flex mb-2 space-x-2">
                                 <input
                                     type="text"
@@ -186,7 +184,6 @@ export default function DashboardPage() {
                                 </button>
                             </div>
 
-                            {/* List of selected members */}
                             {selectedMembers.length > 0 && (
                                 <ul className="list-disc pl-5">
                                     {selectedMembers.map((member) => (
