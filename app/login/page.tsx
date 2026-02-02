@@ -25,7 +25,7 @@ export default function LoginPage() {
       if (res.ok) {
         // Save user info in localStorage/sessionStorage (simplified)
         localStorage.setItem("user", JSON.stringify(data.user));
-        router.push("/dashboard"); // redirect to dashboard
+        router.push("/dashboard");
       } else {
         setError(data.message || "Login failed");
       }
