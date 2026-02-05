@@ -63,7 +63,7 @@ export default function LoginPage() {
           type="submit"
           className="w-full bg-blue-600 text-white p-2 rounded hover:bg-blue-700"
         >
-          Login
+          Login Now
         </button>
       </form>
     </div>
